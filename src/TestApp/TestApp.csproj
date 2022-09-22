@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net452;netstandard2.1</TargetFrameworks>
+    <Configurations>Debug;Release</Configurations>
+    <Platforms>AnyCPU</Platforms>
+    <ApplicationIcon />
+    <OutputType>Exe</OutputType>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\xsltlib\xsltlib.csproj">
+      <Project>{90CA48AB-9C63-429C-9FA0-8821ADC3F27E}</Project>
+      <Name>xsltlib</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

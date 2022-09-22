@@ -1,0 +1,17 @@
+\.idea/
+\.vs/
+\.vscode/
+\.sonarqube/
+src/NUnitTests/bin/
+src/NUnitTests/obj/
+src/xsltlib/bin/
+src/xsltlib/obj/
+src/TestApp/bin/
+src/TestApp/obj/
+build/bin/
+build/reports/
+*.ospx
+map.json
+tools/nuget.exe
+tools/test
+tools/NUnit.ConsoleRunner.3.6.1
