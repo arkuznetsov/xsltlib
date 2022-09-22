@@ -38,7 +38,7 @@ namespace oscriptcomponent
         /// Загружает таблицу стилей XSL
         /// </summary>
         /// <param name="xmlString">Строка. Строка, содержащая описание преобразования XSL.</param>
-        [ContextMethod("ЗагрузитьТаблицуСтилейXSLИзСтроки ", "LoadXSLStylesheetFromString")]
+        [ContextMethod("ЗагрузитьТаблицуСтилейXSLИзСтроки", "LoadXSLStylesheetFromString")]
         public void LoadXSLStylesheetFromString(string xmlString)
         {
             XmlReaderImpl _reader = new XmlReaderImpl();
@@ -52,7 +52,7 @@ namespace oscriptcomponent
         /// Загружает описание преобразования XSL из узла DOM.
         /// </summary>
         /// <param name="domNode">УзелDOM. Узел DOM, представляющий собой шаблон XSL.</param>
-        [ContextMethod("ЗагрузитьТаблицуСтилейXSLИзУзла ", "LoadXSLStylesheetFromNode")]
+        [ContextMethod("ЗагрузитьТаблицуСтилейXSLИзУзла", "LoadXSLStylesheetFromNode")]
         public void LoadXSLStylesheetFromNode(IValue domNode)
         {
             throw new NotImplementedException();
@@ -62,7 +62,7 @@ namespace oscriptcomponent
         /// Загружает описание преобразования XSL из файла.
         /// </summary>
         /// <param name="fileName">Строка. Имя файла, из которого должно быть загружено описание преобразования XSL.</param>
-        [ContextMethod("ЗагрузитьТаблицуСтилейXSLИзФайла ", "LoadXSLStylesheetFromFile")]
+        [ContextMethod("ЗагрузитьТаблицуСтилейXSLИзФайла", "LoadXSLStylesheetFromFile")]
         public void LoadXSLStylesheetFromFile(string fileName)
         {
             XmlReaderImpl _reader = new XmlReaderImpl();

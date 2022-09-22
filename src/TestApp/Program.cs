@@ -15,42 +15,30 @@ namespace TestApp
 		static readonly string SCRIPT = @"// Отладочный скрипт
 // в котором уже подключена наша компонента
 
-ИзвлечениеДанных = Новый ИзвлечениеДанныхJSON();
+Преобразование = Новый ПреобразованиеXSL();
 
-СтрокаJSON = ""{
-			|	""""Stores"""": [
-			|		""""Lambton Quay"""",
-			|		""""Willis Street""""
-			|	],
-			|	""""Manufacturers"""": [
-			|		{
-			|			""""Name"""": """"Acme Co"""",
-			|			""""Products"""": [
-			|				{
-			|					""""Name"""": """"Anvil"""",
-			|					""""Price"""": 50
-			|				}
-			|			]
-			|		},
-			|		{
-			|			""""Name"""": """"Contoso"""",
-			|			""""Products"""": [
-		    |				{
-			|					""""Name"""": """"Elbow Grease"""",
-			|					""""Price"""": 99.95
-			|				},
-			|				{
-			|					""""Name"""": """"Headlight Fluid"""",
-			|					""""Price"""": 4
-			|				}
-			|			]
-			|		}
-			|	]
-			|}"";
+СтрокаXSL = ""<?xml version = """"1.0"""" encoding=""""UTF-8""""?>
+            |<xsl:stylesheet version = """"3.0"""" xmlns:xsl=""""http://www.w3.org/1999/XSL/Transform"""">
+			|
+			|	<xsl:output method=""""xml"""" indent=""""yes"""" />
+			|	<xsl:template match="""" / """">
+			|		<new>
+			|			<xsl:value-of select=""""/root/item[last()]""""/>
+			|		</new>
+			|	</xsl:template>
+			|</xsl:stylesheet>"";
 
-ИзвлечениеДанных.УстановитьСтроку(СтрокаJSON);
+СтрокаXML = ""<?xml version = """"1.0"""" encoding=""""UTF-8""""?>
+			|
+			|<root>
+			|	<item>item1</item>
+			|	<item>item2</item>
+			|	<item>item3</item>
+			|</root>"";
 
-Результат = ИзвлечениеДанных.Выбрать(""$.Manufacturers[?(@.Name == 'Acme Co')].Name"");
+Преобразование.ЗагрузитьТаблицуСтилейXSLИзСтроки(СтрокаXSL);
+
+Результат = Преобразование.ПреобразоватьИзСтроки(СтрокаXML);
 Сообщить(Результат);
 Сообщить(""Ок!"");
 "
