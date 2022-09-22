@@ -22,6 +22,7 @@ namespace oscriptcomponent
     public class XSLTransform : AutoContext<XSLTransform>
     {
         private XslCompiledTransform _xslTransform;
+        private XsltArgumentList _argumentList;
 
         /// <summary>
         /// Загружает таблицу стилей XSL
@@ -30,7 +31,7 @@ namespace oscriptcomponent
         [ContextMethod("ЗагрузитьТаблицуСтилей", "LoadXSLStylesheet")]
         public void LoadXSLStylesheet(XmlReaderImpl xmlReader)
         {
-            throw new NotImplementedException();
+            _xslTransform.Load(xmlReader.GetNativeReader());
         }
 
         /// <summary>
@@ -40,7 +41,11 @@ namespace oscriptcomponent
         [ContextMethod("ЗагрузитьТаблицуСтилейXSLИзСтроки ", "LoadXSLStylesheetFromString")]
         public void LoadXSLStylesheetFromString(string xmlString)
         {
-            throw new NotImplementedException();
+            XmlReaderImpl _reader = new XmlReaderImpl();
+
+            _reader.SetString(xmlString);
+
+            LoadXSLStylesheet(_reader);
         }
 
         /// <summary>
@@ -60,7 +65,11 @@ namespace oscriptcomponent
         [ContextMethod("ЗагрузитьТаблицуСтилейXSLИзФайла ", "LoadXSLStylesheetFromFile")]
         public void LoadXSLStylesheetFromFile(string fileName)
         {
-            throw new NotImplementedException();
+            XmlReaderImpl _reader = new XmlReaderImpl();
+
+            _reader.OpenFile(fileName);
+
+            LoadXSLStylesheet(_reader);
         }
 
         /// <summary>
@@ -69,7 +78,8 @@ namespace oscriptcomponent
         [ContextMethod("Очистить", "Clear")]
         public void Clear()
         {
-            throw new NotImplementedException();
+            _xslTransform = new XslCompiledTransform();
+            _argumentList = new XsltArgumentList();
         }
 
         /// <summary>
@@ -77,11 +87,15 @@ namespace oscriptcomponent
         /// Используется описание преобразования и значения параметров, ранее установленные в данном объекте.
         /// </summary>
         /// <param name="xmlReader">ЧтениеXML. Объект чтения XML, из которого будет прочитан исходный XML документ для преобразования.</param>
-        /// <param name="xmlWriter">ЧтениеXML. Объект записи XML, в который будет записан результат преобразования.</param>
+        /// <param name="xmlWriter">ЗаписьXML. Объект записи XML, в который будет записан результат преобразования.</param>
         [ContextMethod("Преобразовать", "Transform")]
         public void Transform(XmlReaderImpl xmlReader, XmlWriterImpl xmlWriter)
         {
-            throw new NotImplementedException();
+
+            XmlReader _reader = xmlReader.GetNativeReader();
+            XmlWriter _writer = xmlWriter.GetNativeWriter();
+
+            _xslTransform.Transform(_reader, _argumentList, _writer);
         }
 
         /// <summary>
@@ -89,15 +103,29 @@ namespace oscriptcomponent
         /// Используется описание преобразования и значения параметров, ранее установленные в данном объекте.
         /// </summary>
         /// <param name="xmlString">Строка. Строка, в которой находится XML-документ.</param>
-        /// <param name="xmlWriter">ЧтениеXML. Объект записи XML, в который будет записан результат преобразования.
+        /// <param name="xmlWriter">ЗаписьXML. Объект записи XML, в который будет записан результат преобразования.
         /// Указание данного параметра имеет смысл, если преобразование выполняется в документ XML.
         /// При указании данного параметра результат преобразования будет записываться в объект ЗаписьXML,
         /// возвращаемое значение в данном случае будет отсутствовать.</param>
         /// <returns>Строка. Результат преобразования.</returns>
         [ContextMethod("ПреобразоватьИзСтроки", "TransformFromString")]
-        public string TransformFromString(string xmlString, XmlWriterImpl xmlWriter)
+        public string TransformFromString(string xmlString, XmlWriterImpl xmlWriter = null)
         {
-            throw new NotImplementedException();
+            XmlReaderImpl _reader = new XmlReaderImpl();
+
+            _reader.SetString(xmlString);
+
+            XmlWriterImpl _writer = new XmlWriterImpl();
+            _writer.SetString();
+
+            Transform(_reader, _writer);
+
+            string result = _writer.Close().ToString();
+
+            if (xmlWriter != null)
+                xmlWriter.WriteRaw(result);
+
+            return result;
         }
 
         /// <summary>
@@ -105,13 +133,13 @@ namespace oscriptcomponent
         /// Используется описание преобразования и значения параметров, ранее установленные в данном объекте.
         /// </summary>
         /// <param name="domNode">УзелDOM. Узел DOM - исходное дерево для преобразования XSL.</param>
-        /// <param name="xmlWriter">ЧтениеXML. Объект записи XML, в который будет записан результат преобразования.
+        /// <param name="xmlWriter">ЗаписьXML. Объект записи XML, в который будет записан результат преобразования.
         /// Указание данного параметра имеет смысл, если преобразование выполняется в документ XML.
         /// При указании данного параметра результат преобразования будет записываться в объект ЗаписьXML,
         /// возвращаемое значение в данном случае будет отсутствовать.</param>
         /// <returns>Строка. Результат преобразования.</returns>
         [ContextMethod("ПреобразоватьИзУзла", "TransformFromNode")]
-        public string TransformFromNode(IValue domNode, XmlWriterImpl xmlWriter)
+        public IValue TransformFromNode(IValue domNode, XmlWriterImpl xmlWriter = null)
         {
             throw new NotImplementedException();
         }
@@ -121,15 +149,29 @@ namespace oscriptcomponent
         /// Используется описание преобразования и значения параметров, ранее установленные в данном объекте.
         /// </summary>
         /// <param name="fileName">Строка. Имя файла, в котором находится преобразуемый XML-документ.</param>
-        /// <param name="xmlWriter">ЧтениеXML. Объект записи XML, в который будет записан результат преобразования.
+        /// <param name="xmlWriter">ЗаписьXML. Объект записи XML, в который будет записан результат преобразования.
         /// Указание данного параметра имеет смысл, если преобразование выполняется в документ XML.
         /// При указании данного параметра результат преобразования будет записываться в объект ЗаписьXML,
         /// возвращаемое значение в данном случае будет отсутствовать.</param>
         /// <returns>Строка. Результат преобразования.</returns>
         [ContextMethod("ПреобразоватьИзФайла", "TransformFromFile")]
-        public string TransformFromFile(string fileName, XmlWriterImpl xmlWriter)
+        public string TransformFromFile(string fileName, XmlWriterImpl xmlWriter = null)
         {
-            throw new NotImplementedException();
+            XmlReaderImpl _reader = new XmlReaderImpl();
+
+            _reader.OpenFile(fileName);
+
+            XmlWriterImpl _writer = new XmlWriterImpl();
+            _writer.SetString();
+
+            Transform(_reader, _writer);
+
+            string result = _writer.Close().ToString();
+
+            if (xmlWriter != null)
+                xmlWriter.WriteRaw(result);
+
+            return result;
         }
 
         /// <summary>
@@ -140,7 +182,22 @@ namespace oscriptcomponent
         [ContextMethod("УдалитьПараметр", "AddParameter")]
         public void AddParameter(string fullName, IValue value)
         {
-            throw new NotImplementedException();
+
+            switch (value.DataType)
+            {
+                case DataType.Boolean:
+                    _argumentList.AddParam(fullName, "", value.AsBoolean());
+                    break;
+                case DataType.Number:
+                    _argumentList.AddParam(fullName, "", value.AsNumber());
+                    break;
+                case DataType.String:
+                    _argumentList.AddParam(fullName, "", value.AsString());
+                    break;
+                default:
+                    _argumentList.AddParam(fullName, "", value.AsObject());
+                    break;
+            }
         }
 
         /// <summary>
@@ -150,13 +207,23 @@ namespace oscriptcomponent
         [ContextMethod("ДобавитьПараметр", "RemoveParameter")]
         public void RemoveParameter(string fullName)
         {
-            throw new NotImplementedException();
+            _argumentList.RemoveParam(fullName, "");
         }
 
         /// <summary>
-        /// Создает ИзвлечениеДанныхJSON
+        /// Создает XSLTransform
         /// </summary>
-        /// <returns>ИзвлечениеДанныхJSON</returns>
+        /// <returns>XSLTransform</returns>
+        public XSLTransform()
+        {
+            _xslTransform = new XslCompiledTransform();
+            _argumentList = new XsltArgumentList();
+        }
+
+        /// <summary>
+        /// Создает ПреобразованиеXSL
+        /// </summary>
+        /// <returns>ПреобразованиеXSL</returns>
         [ScriptConstructor]
         public static IRuntimeContextInstance Constructor()
         {
