@@ -7,14 +7,10 @@ https://opensource.org/licenses/MIT.
 ----------------------------------------------------------*/
 
 using System;
-using System.IO;
-using System.Text;
-using System.Collections.Generic;
-using System.Threading;
 using ScriptEngine.Machine;
 using ScriptEngine.Machine.Contexts;
-using ScriptEngine.HostedScript.Library;
-using ScriptEngine.HostedScript.Library.Binary;
+using ScriptEngine.HostedScript.Library.Xml;
+using System.Xml;
 using System.Xml.Xsl;
 
 namespace oscriptcomponent
@@ -25,7 +21,7 @@ namespace oscriptcomponent
     [ContextClass("ПреобразованиеXSL", "XSLTransform")]
     public class XSLTransform : AutoContext<XSLTransform>
     {
-        private XSLCompiledTransform _xslTransform;
+        private XslCompiledTransform _xslTransform;
 
         /// <summary>
         /// Загружает таблицу стилей XSL
@@ -34,7 +30,7 @@ namespace oscriptcomponent
         [ContextMethod("ЗагрузитьТаблицуСтилей", "LoadXSLStylesheet")]
         public void LoadXSLStylesheet(XmlReaderImpl xmlReader)
         {
-            throw Exceptions.NotImplementedException;
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -44,7 +40,7 @@ namespace oscriptcomponent
         [ContextMethod("ЗагрузитьТаблицуСтилейXSLИзСтроки ", "LoadXSLStylesheetFromString")]
         public void LoadXSLStylesheetFromString(string xmlString)
         {
-            throw Exceptions.NotImplementedException;
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -54,7 +50,7 @@ namespace oscriptcomponent
         [ContextMethod("ЗагрузитьТаблицуСтилейXSLИзУзла ", "LoadXSLStylesheetFromNode")]
         public void LoadXSLStylesheetFromNode(IValue domNode)
         {
-            throw Exceptions.NotImplementedException;
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -64,7 +60,7 @@ namespace oscriptcomponent
         [ContextMethod("ЗагрузитьТаблицуСтилейXSLИзФайла ", "LoadXSLStylesheetFromFile")]
         public void LoadXSLStylesheetFromFile(string fileName)
         {
-            throw Exceptions.NotImplementedException;
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -73,7 +69,7 @@ namespace oscriptcomponent
         [ContextMethod("Очистить", "Clear")]
         public void Clear()
         {
-            throw Exceptions.NotImplementedException;
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -85,7 +81,7 @@ namespace oscriptcomponent
         [ContextMethod("Преобразовать", "Transform")]
         public void Transform(XmlReaderImpl xmlReader, XmlWriterImpl xmlWriter)
         {
-            throw Exceptions.NotImplementedException;
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -101,7 +97,7 @@ namespace oscriptcomponent
         [ContextMethod("ПреобразоватьИзСтроки", "TransformFromString")]
         public string TransformFromString(string xmlString, XmlWriterImpl xmlWriter)
         {
-            throw Exceptions.NotImplementedException;
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -117,7 +113,7 @@ namespace oscriptcomponent
         [ContextMethod("ПреобразоватьИзУзла", "TransformFromNode")]
         public string TransformFromNode(IValue domNode, XmlWriterImpl xmlWriter)
         {
-            throw Exceptions.NotImplementedException;
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -133,7 +129,7 @@ namespace oscriptcomponent
         [ContextMethod("ПреобразоватьИзФайла", "TransformFromFile")]
         public string TransformFromFile(string fileName, XmlWriterImpl xmlWriter)
         {
-            throw Exceptions.NotImplementedException;
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -144,7 +140,7 @@ namespace oscriptcomponent
         [ContextMethod("УдалитьПараметр", "AddParameter")]
         public void AddParameter(string fullName, IValue value)
         {
-            throw Exceptions.NotImplementedException;
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -154,7 +150,7 @@ namespace oscriptcomponent
         [ContextMethod("ДобавитьПараметр", "RemoveParameter")]
         public void RemoveParameter(string fullName)
         {
-            throw Exceptions.NotImplementedException;
+            throw new NotImplementedException();
         }
 
         /// <summary>
