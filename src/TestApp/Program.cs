@@ -4,6 +4,8 @@
 // В проекте TestApp должны быть подключены NuGet пакеты OneScript и OneScript.Library
 
 using System;
+using System.IO;
+using System.Reflection;
 using ScriptEngine.HostedScript;
 using ScriptEngine.HostedScript.Library;
 
@@ -12,37 +14,7 @@ namespace TestApp
 	class MainClass : IHostApplication
 	{
 
-		static readonly string SCRIPT = @"// Отладочный скрипт
-// в котором уже подключена наша компонента
-
-Преобразование = Новый ПреобразованиеXSL();
-
-СтрокаXSL = ""<?xml version = """"1.0"""" encoding=""""UTF-8""""?>
-            |<xsl:stylesheet version = """"3.0"""" xmlns:xsl=""""http://www.w3.org/1999/XSL/Transform"""">
-			|
-			|	<xsl:output method=""""xml"""" indent=""""yes"""" />
-			|	<xsl:template match="""" / """">
-			|		<new>
-			|			<xsl:value-of select=""""/root/item[last()]""""/>
-			|		</new>
-			|	</xsl:template>
-			|</xsl:stylesheet>"";
-
-СтрокаXML = ""<?xml version = """"1.0"""" encoding=""""UTF-8""""?>
-			|
-			|<root>
-			|	<item>item1</item>
-			|	<item>item2</item>
-			|	<item>item3</item>
-			|</root>"";
-
-Преобразование.ЗагрузитьТаблицуСтилейXSLИзСтроки(СтрокаXSL);
-
-Результат = Преобразование.ПреобразоватьИзСтроки(СтрокаXML);
-Сообщить(Результат);
-Сообщить(""Ок!"");
-"
-		;
+		static readonly string SCRIPT = GetStringFromResource("TestApp.Resourses.testScript.os");
 
 		public static HostedScriptEngine StartEngine()
 		{
@@ -87,6 +59,22 @@ namespace TestApp
 		public string[] GetCommandLineArguments()
 		{
 			return new string[] { "1", "2", "3" }; // Здесь можно зашить список аргументов командной строки
+		}
+
+		static private string GetStringFromResource(string resourceName)
+		{
+			var asm = Assembly.GetExecutingAssembly();
+			string codeSource;
+
+			using (Stream s = asm.GetManifestResourceStream(resourceName))
+			{
+				using (StreamReader r = new StreamReader(s))
+				{
+					codeSource = r.ReadToEnd();
+				}
+			}
+
+			return codeSource;
 		}
 	}
 }
