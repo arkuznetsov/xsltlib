@@ -175,11 +175,11 @@ namespace oscriptcomponent
         }
 
         /// <summary>
-        /// Задает значение параметра преобразования.
+        /// Добавляет значение параметра преобразования.
         /// </summary>
         /// <param name="fullName">Строка. Полное имя параметра.</param>
         /// <param name="value">Булево, Число, Строка. Значение параметра.</param>
-        [ContextMethod("УдалитьПараметр", "AddParameter")]
+        [ContextMethod("ДобавитьПараметр", "AddParameter")]
         public void AddParameter(string fullName, IValue value)
         {
 
@@ -201,10 +201,10 @@ namespace oscriptcomponent
         }
 
         /// <summary>
-        /// Удаляет значение параметра.
+        /// Удаляет значение параметра преобразования.
         /// </summary>
         /// <param name="fullName">Строка. Полное имя параметра.</param>
-        [ContextMethod("ДобавитьПараметр", "RemoveParameter")]
+        [ContextMethod("УдалитьПараметр", "RemoveParameter")]
         public void RemoveParameter(string fullName)
         {
             _argumentList.RemoveParam(fullName, "");
