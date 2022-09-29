@@ -13,3 +13,93 @@
 ## Компонента преобразования данных XML с использованием XSLT для oscript
 
 ## Примеры использования
+
+### Преобразование строки XML
+
+* таблица преобразования из строки
+* результат в виде строки
+
+```bsl
+#Использовать xsltlib
+
+ТаблицаСтилей = "<?xml version = ""1.0"" encoding=""UTF-8""?>
+                |<xsl:stylesheet version = ""3.0"" xmlns:xsl=""http://www.w3.org/1999/XSL/Transform"">
+                |
+                |  <xsl:output method=""xml"" indent=""yes"" />
+                |  <xsl:template match="" / "">
+                |    <new>
+                |      <xsl:value-of select=""/root/item[last()]""/>
+                |    </new>
+                |  </xsl:template>
+                |</xsl:stylesheet>";
+
+СтрокаXML = "<?xml version = ""1.0"" encoding=""UTF-8""?>
+            |
+            |<root>
+            |  <item>item1</item>
+            |  <item>item2</item>
+            |  <item>item3</item>
+            |</root>";
+
+```bsl
+#Использовать xsltlib
+
+Преобразование = Новый ПреобразованиеXSL();
+Преобразование.ЗагрузитьТаблицуСтилейИзСтроки(ТаблицаСтилей);
+
+Результат = Преобразование.ПреобразоватьИзСтроки(СтрокаXML);
+Сообщить(Результат);
+
+// > <new>item3</new>
+```
+
+### Преобразование файла XML (таблица преобразования из файла)
+
+* таблица преобразования из файла
+* результат в запись XML (файл)
+
+```xml
+<!-- stylesheet.xslt -->
+
+<?xml version = "1.0" encoding="UTF-8"?>
+
+<xsl:stylesheet version = "3.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+  <xsl:output method="xml" indent="yes" />
+  <xsl:template match=" / ">
+    <new>
+      <xsl:value-of select="/root/item[last()]"/>
+    </new>
+  </xsl:template>
+</xsl:stylesheet>
+```
+
+```xml
+<!-- data.xml -->
+
+<?xml version = "1.0" encoding="UTF-8"?>
+
+<root>
+  <item>item1</item>
+  <item>item2</item>
+  <item>item3</item>
+</root>
+```
+
+```bsl
+#Использовать xsltlib
+
+Преобразование = Новый ПреобразованиеXSL();
+Преобразование.ЗагрузитьТаблицуСтилейИзФайла("stylesheet.xslt");
+
+Запись = Новый ЗаписьXML();
+Запись.ОткрытьФайл("result.xml");
+
+Результат = Преобразование.ПреобразоватьИзФайла("stylesheet.xslt", Запись);
+
+```
+
+```xml
+<!-- result.xml -->
+
+<new>item3</new>
+```
