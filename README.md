@@ -1,4 +1,4 @@
-# Oscript JSON data extractor component
+# Oscript XSL Transform component
 
 [![GitHub release](https://img.shields.io/github/release/ArKuznetsov/xsltlib.svg?style=flat-square)](https://github.com/ArKuznetsov/xsltlib/releases)
 [![GitHub license](https://img.shields.io/github/license/ArKuznetsov/xsltlib.svg?style=flat-square)](https://github.com/ArKuznetsov/xsltlib/blob/master/LICENSE)
