@@ -9,6 +9,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resourses\testScript.os" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\xsltlib\xsltlib.csproj">
       <Project>{90CA48AB-9C63-429C-9FA0-8821ADC3F27E}</Project>
       <Name>xsltlib</Name>
