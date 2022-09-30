@@ -51,11 +51,18 @@ namespace oscriptcomponent
         /// <summary>
         /// Загружает описание преобразования XSL из узла DOM.
         /// </summary>
-        /// <param name="domNode">УзелDOM. Узел DOM, представляющий собой шаблон XSL.</param>
+        /// <param name="xmlNode">УзелDOM. Узел DOM, представляющий собой шаблон XSL.</param>
         [ContextMethod("ЗагрузитьТаблицуСтилейXSLИзУзла", "LoadXSLStylesheetFromNode")]
-        public void LoadXSLStylesheetFromNode(IValue domNode)
+        public void LoadXSLStylesheetFromNode(IValue xmlNode)
         {
-            throw new NotImplementedException();
+            if (xmlNode.DataType != DataType.Object)
+                throw RuntimeException.InvalidArgumentType();
+
+            IRuntimeContextInstance valueObject = xmlNode.AsObject();
+            if (valueObject is XmlNode node)
+                _xslTransform.Load(node);
+            else
+                throw RuntimeException.InvalidArgumentType();
         }
 
         /// <summary>
@@ -132,16 +139,34 @@ namespace oscriptcomponent
         /// Выполняет преобразование XML-документа.
         /// Используется описание преобразования и значения параметров, ранее установленные в данном объекте.
         /// </summary>
-        /// <param name="domNode">УзелDOM. Узел DOM - исходное дерево для преобразования XSL.</param>
+        /// <param name="xmlNode">УзелDOM. Узел DOM - исходное дерево для преобразования XSL.</param>
         /// <param name="xmlWriter">ЗаписьXML. Объект записи XML, в который будет записан результат преобразования.
         /// Указание данного параметра имеет смысл, если преобразование выполняется в документ XML.
         /// При указании данного параметра результат преобразования будет записываться в объект ЗаписьXML,
         /// возвращаемое значение в данном случае будет отсутствовать.</param>
         /// <returns>Строка. Результат преобразования.</returns>
         [ContextMethod("ПреобразоватьИзУзла", "TransformFromNode")]
-        public IValue TransformFromNode(IValue domNode, XmlWriterImpl xmlWriter = null)
+        public string TransformFromNode(IValue xmlNode, XmlWriterImpl xmlWriter = null)
         {
-            throw new NotImplementedException();
+            if (xmlNode.DataType != DataType.Object)
+                throw RuntimeException.InvalidArgumentType();
+
+            XmlWriterImpl _writer = new XmlWriterImpl();
+            _writer.SetString();
+            XmlWriter _nativeWriter = _writer.GetNativeWriter();
+            
+            IRuntimeContextInstance valueObject = xmlNode.AsObject();
+            if (valueObject is XmlNode node)
+                _xslTransform.Transform(node, _nativeWriter);
+            else
+                throw RuntimeException.InvalidArgumentType();
+
+            string result = _writer.Close().ToString();
+
+            if (xmlWriter != null)
+                xmlWriter.WriteRaw(result);
+
+            return result;
         }
 
         /// <summary>
