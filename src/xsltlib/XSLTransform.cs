@@ -55,14 +55,7 @@ namespace oscriptcomponent
         [ContextMethod("ЗагрузитьТаблицуСтилейXSLИзУзла", "LoadXSLStylesheetFromNode")]
         public void LoadXSLStylesheetFromNode(IValue xmlNode)
         {
-            if (xmlNode.DataType != DataType.Object)
-                throw RuntimeException.InvalidArgumentType();
-
-            IRuntimeContextInstance valueObject = xmlNode.AsObject();
-            if (valueObject is XmlNode node)
-                _xslTransform.Load(node);
-            else
-                throw RuntimeException.InvalidArgumentType();
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -148,25 +141,7 @@ namespace oscriptcomponent
         [ContextMethod("ПреобразоватьИзУзла", "TransformFromNode")]
         public string TransformFromNode(IValue xmlNode, XmlWriterImpl xmlWriter = null)
         {
-            if (xmlNode.DataType != DataType.Object)
-                throw RuntimeException.InvalidArgumentType();
-
-            XmlWriterImpl _writer = new XmlWriterImpl();
-            _writer.SetString();
-            XmlWriter _nativeWriter = _writer.GetNativeWriter();
-            
-            IRuntimeContextInstance valueObject = xmlNode.AsObject();
-            if (valueObject is XmlNode node)
-                _xslTransform.Transform(node, _nativeWriter);
-            else
-                throw RuntimeException.InvalidArgumentType();
-
-            string result = _writer.Close().ToString();
-
-            if (xmlWriter != null)
-                xmlWriter.WriteRaw(result);
-
-            return result;
+            throw new NotImplementedException();
         }
 
         /// <summary>
