@@ -183,21 +183,8 @@ namespace oscriptcomponent
         public void AddParameter(string fullName, IValue value)
         {
 
-            switch (value.DataType)
-            {
-                case DataType.Boolean:
-                    _argumentList.AddParam(fullName, "", value.AsBoolean());
-                    break;
-                case DataType.Number:
-                    _argumentList.AddParam(fullName, "", value.AsNumber());
-                    break;
-                case DataType.String:
-                    _argumentList.AddParam(fullName, "", value.AsString());
-                    break;
-                default:
-                    _argumentList.AddParam(fullName, "", value.AsObject());
-                    break;
-            }
+            var _value = ContextValuesMarshaller.ConvertToCLRObject(value);
+            _argumentList.AddParam(fullName, "", _value);
         }
 
         /// <summary>
