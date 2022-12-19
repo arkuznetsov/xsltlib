@@ -1,5 +1,3 @@
-# Oscript XSL Transform component
-
 [![GitHub release](https://img.shields.io/github/release/ArKuznetsov/xsltlib.svg?style=flat-square)](https://github.com/ArKuznetsov/xsltlib/releases)
 [![GitHub license](https://img.shields.io/github/license/ArKuznetsov/xsltlib.svg?style=flat-square)](https://github.com/ArKuznetsov/xsltlib/blob/master/LICENSE)
 [![GitHub Releases](https://img.shields.io/github/downloads/ArKuznetsov/xsltlib/latest/total?style=flat-square)](https://github.com/ArKuznetsov/xsltlib/releases)
@@ -9,6 +7,10 @@
 [![Quality Gate](https://open.checkbsl.org/api/project_badges/measure?project=xsltlib&metric=alert_status)](https://open.checkbsl.org/dashboard/index/xsltlib)
 [![Coverage](https://open.checkbsl.org/api/project_badges/measure?project=xsltlib&metric=coverage)](https://open.checkbsl.org/dashboard/index/xsltlib)
 [![Tech debt](https://open.checkbsl.org/api/project_badges/measure?project=xsltlib&metric=sqale_index)](https://open.checkbsl.org/dashboard/index/xsltlib)
+
+<a href="https://checkbsl.org"><img alt="Checked by Silver Bulleters SonarQube BSL plugin" src="https://web-files.do.bit-erp.ru/sonar/b_t.png" align="right" style="width:400px"/></a>
+
+# Oscript XSL Transform component
 
 ## Компонента преобразования данных XML с использованием XSLT для oscript
 
